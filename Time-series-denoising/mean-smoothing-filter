@@ -1,0 +1,28 @@
+echo "# SIGNAL-PROCESSING" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/sunjana2199/SIGNAL-PROCESSING.git
+git push -u origin master
+
+srate = 100; % Hz
+time  = 0:1/srate:3;
+n     = length(time);
+p     = 15; 
+
+
+noiseamp = 5; 
+
+ampl   = interp1(rand(p,1)*30,linspace(1,p,n));
+noise  = noiseamp * randn(size(time));
+signal = ampl + noise;
+
+filtsig = zeros(size(signal))
+k = 5;
+for i=k+1:n-k-1
+    filtsig(i) = mean(signal(i-k:i+k));
+end
+
+figure(1), clf, hold on
+plot(time,signal, time,filtsig, 'linew',2)
+
